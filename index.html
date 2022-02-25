@@ -1,0 +1,106 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="index.css">
+    <script>
+        function showModal() {
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the button that opens the modal
+            var btn = document.getElementById("myBtn");
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on the button, open the modal
+            modal.style.display = "block";
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+            modal.style.display = "none";
+            }
+        }
+        function getLevel() {
+            const level = getCookie("level");
+            alert(localStorage.getItem("level"));
+        }
+
+        function refresh() {
+            document.getElementById('random-number').hidden = false;
+            let randomNumber = Math.floor(Math.random() * (999999 - 111111 + 1) + 111111);
+            
+            const numberElement = document.getElementById('random-number');
+            numberElement.innerHTML = randomNumber;
+
+            setTimeout(() => document.getElementById('random-number').hidden = true, 2500
+            );
+
+        }
+        function check() {
+            const numberElement = document.getElementById('random-number');
+            const guessElement = document.getElementById('guess');
+            
+            alert(numberElement.innerHTML === guessElement.value);
+
+            localStorage.setItem("level", 2)
+            getLevel();
+        }
+        function setNumber(num) {
+            const guessElement = document.getElementById('guess');
+            guessElement.value = guessElement.value + '' + num.toString();
+        }
+    </script>
+</head>
+
+<body onload="showModal()">
+    <div style="display: flex; justify-content: space-between; border-bottom: 1px solid black; border-top: 1px solid black;">
+        <input type="image" src="./refresh.png" style="align-self: center; border: double;" height="30px" width="30px" onclick="refresh()" />
+        <h1 id='main-title' style="text-align: center;">זיכרון צילומי</h1>
+        <input type="image" src="./question.jpg" style="align-self: center; border: double;" height="30px" width="30px"/> 
+        </div>
+    <div>
+        <h1 id='random-number' style="text-align: center;"></h1>
+    </div>
+    <div style="text-align: center;">
+        <br />
+        <input id='guess' style="font-size: 2rem;line-height: 2rem; font-weight: bold; width: 200px; "></input>
+        <br /><br />
+        <button style="width: 50px; height: 50px;font-size: 2rem;line-height: 2rem; font-weight: bold; " onclick="setNumber(1)">1
+        </button>
+        <button style="width: 50px; height: 50px;font-size: 2rem;line-height: 2rem; font-weight: bold; " onclick="setNumber(2)">2
+        </button>
+        <button style="width: 50px; height: 50px;font-size: 2rem;line-height: 2rem; font-weight: bold; " onclick="setNumber(3)">3
+        </button>
+        <br />   
+        <button style="width: 50px; height: 50px;font-size: 2rem;line-height: 2rem; font-weight: bold; " onclick="check()">4
+        </button>
+        <button style="width: 50px; height: 50px;font-size: 2rem;line-height: 2rem; font-weight: bold; " onclick="check()">5
+        </button>
+        <button style="width: 50px; height: 50px;font-size: 2rem;line-height: 2rem; font-weight: bold; " onclick="check()">6
+        </button>
+        <br />
+        <button style="width: 50px; height: 50px;font-size: 2rem;line-height: 2rem; font-weight: bold; " onclick="check()">7
+        </button>
+        <button style="width: 50px; height: 50px;font-size: 2rem;line-height: 2rem; font-weight: bold; " onclick="check()">8
+        </button>
+        <button style="width: 50px; height: 50px;font-size: 2rem;line-height: 2rem; font-weight: bold; " onclick="check()">9
+        </button>
+        <br />
+        <button style="width: 50px; height: 50px;font-size: 2rem;line-height: 2rem; font-weight: bold;      " onclick="check()">0
+        </button>
+        <br /><br />
+        <button style="width: 100px; height: 50px;" onclick="showModal()">בדוק
+        </button>
+    </div>
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <p>Some text in the Modal..</p>
+        </div>
+      
+    </div>
+</body>
+</html>
