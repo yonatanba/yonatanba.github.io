@@ -7,7 +7,12 @@
             // Get the modal
             var modal = document.getElementById("instructionsModal");
 
-            
+            let level = localStorage.getItem("level");
+            if(level === null) {
+                localStorage.setItem("level", 3);
+                level = localStorage.getItem("level");
+            }
+
             // When the user clicks on the button, open the modal
             modal.style.display = "block";
 
@@ -18,16 +23,13 @@
                 modal.style.display = "none";
             }
         }
-     
-        function getLevel() {
-            const level = getCookie("level");
-            alert(localStorage.getItem("level"));
-        }
 
         function refresh() {
             var modal = document.getElementById("randomModal");
             
-            let randomNumber = Math.floor(Math.random() * (999999 - 111111 + 1) + 111111);
+            const currentLevel = Number.parseInt(localStorage.getItem("level"));
+
+            let randomNumber = Math.floor(Math.random() * ((Math.pow(10, currentLevel) - 1) - Math.pow(10, (currentLevel -1))) + Math.pow(10, (currentLevel - 1)));
             
             const numberElement = document.getElementById('random-number');
             numberElement.innerHTML = randomNumber;
@@ -46,9 +48,15 @@
             const result = numberElement.innerHTML === guessElement.value;
             let modal, close;
             if(result) {
+                const currentLevel= Number.parseInt(localStorage.getItem("level"));
+                localStorage.setItem("level", currentLevel + 1);
+
                 close = document.getElementById("rightClose");
                 modal = document.getElementById("rightModal");
             } else {
+                const currentLevel= Number.parseInt(localStorage.getItem("level"));
+                localStorage.setItem("level", currentLevel - 1);
+
                 close = document.getElementById("wrongClose");
                 modal = document.getElementById("wrongModal");
             }
@@ -73,39 +81,39 @@
 
 <body onload="showInstructions()">
     <div style="display: flex; justify-content: space-between; border-bottom: 1px solid black; border-top: 1px solid black;">
-        <input type="image" src="./refresh.png" style="align-self: center; border: double;" height="30px" width="30px" onclick="refresh()" />
-        <h1 id='main-title' style="text-align: center;">memory game</h1>
-        <input type="image" src="./question.jpg" style="align-self: center; border: double;" height="30px" width="30px" onclick="showInstructions()"/> 
+        <input type="image" src="./refresh.png" style="align-self: center; border: double;" height="70px" width="70px" onclick="refresh()" />
+        <h1 id='main-title' style="text-align: center; font-size: 4rem;">memory game</h1>
+        <input type="image" src="./question.jpg" style="align-self: center; border: double;" height="70px" width="70px" onclick="showInstructions()"/> 
         </div>
     <div style="text-align: center;">
         <br />
-        <input id='guess' style="font-size: 2rem;line-height: 2rem; font-weight: bold; width: 200px; "></input>
+        <input id='guess' style="font-size: 5rem;line-height: 2rem; width: 500px; text-align: center; "></input>
         <br /><br />
-        <button style="width: 50px; height: 50px;font-size: 2rem;line-height: 2rem; font-weight: bold; " onclick="setNumber(1)">1
+        <button style="width: 90px; height: 90px;font-size: 6rem;line-height: 2rem; " onclick="setNumber(1)">1
         </button>
-        <button style="width: 50px; height: 50px;font-size: 2rem;line-height: 2rem; font-weight: bold; " onclick="setNumber(2)">2
+        <button style="width: 90px; height: 90px;font-size: 6rem;line-height: 2rem; " onclick="setNumber(2)">2
         </button>
-        <button style="width: 50px; height: 50px;font-size: 2rem;line-height: 2rem; font-weight: bold; " onclick="setNumber(3)">3
+        <button style="width: 90px; height: 90px;font-size: 6rem;line-height: 2rem; " onclick="setNumber(3)">3
         </button>
         <br />   
-        <button style="width: 50px; height: 50px;font-size: 2rem;line-height: 2rem; font-weight: bold; " onclick="setNumber(4)">4
+        <button style="width: 90px; height: 90px;font-size: 6rem;line-height: 2rem; " onclick="setNumber(4)">4
         </button>
-        <button style="width: 50px; height: 50px;font-size: 2rem;line-height: 2rem; font-weight: bold; " onclick="setNumber(5)">5
+        <button style="width: 90px; height: 90px;font-size: 6rem;line-height: 2rem; " onclick="setNumber(5)">5
         </button>
-        <button style="width: 50px; height: 50px;font-size: 2rem;line-height: 2rem; font-weight: bold; " onclick="setNumber(6)">6
-        </button>
-        <br />
-        <button style="width: 50px; height: 50px;font-size: 2rem;line-height: 2rem; font-weight: bold; " onclick="setNumber(7)">7
-        </button>
-        <button style="width: 50px; height: 50px;font-size: 2rem;line-height: 2rem; font-weight: bold; " onclick="setNumber(8)">8
-        </button>
-        <button style="width: 50px; height: 50px;font-size: 2rem;line-height: 2rem; font-weight: bold; " onclick="setNumber(9)">9
+        <button style="width: 90px; height: 90px;font-size: 6rem;line-height: 2rem; " onclick="setNumber(6)">6
         </button>
         <br />
-        <button style="width: 50px; height: 50px;font-size: 2rem;line-height: 2rem; font-weight: bold; " onclick="setNumber(0)">0
+        <button style="width: 90px; height: 90px;font-size: 6rem;line-height: 2rem; " onclick="setNumber(7)">7
+        </button>
+        <button style="width: 90px; height: 90px;font-size: 6rem;line-height: 2rem; " onclick="setNumber(8)">8
+        </button>
+        <button style="width: 90px; height: 90px;font-size: 6rem;line-height: 2rem; " onclick="setNumber(9)">9
+        </button>
+        <br />
+        <button style="width: 90px; height: 90px;font-size: 6rem;line-height: 2rem; " onclick="setNumber(0)">0
         </button>
         <br /><br />
-        <button style="width: 100px; height: 50px;" onclick="check()">check
+        <button style="width: 210px; height: 101px; font-size: 4rem" onclick="check()">check
         </button>
     </div>
     <div id="instructionsModal" class="modal">
@@ -113,8 +121,8 @@
         <div class="modal-content">
           <span class="close">&times;</span>
           <h3>How to play?</h3>
-          <p>1. click refresh<br/>
-            2. You'll have 2.5 seconds to remember the number<br/>
+          <p>1. click refresh<br/><br/>
+            2. You'll have 2.5 seconds to remember the number<br/><br/>
             3. Type the number and check
 
           </p>
@@ -127,7 +135,7 @@
 
         <!-- Modal content -->
         <div class="modal-content">
-          <p id='random-number' style='text-align: center;font-size: 26px;font-weight: 700;'></p>
+          <p id='random-number' style='text-align: center;font-size: 60px;font-weight: 700;'></p>
         </div>
       
     </div>
@@ -136,7 +144,7 @@
         <div class="modal-content">
             <span id='rightClose' class="close">&times;</span>
             <div style="display: flex; align-items: center;">
-                <img src="./right-answer.png" height="30px" width="30px"/>
+                <img src="./right-answer.png" height="70px" width="70px"/>
                 <h1 id='main-title' style="text-align: center;">&nbsp; Genius!</h1>
             </div>
         </div>
@@ -146,7 +154,7 @@
         <div class="modal-content">
             <span id='wrongClose' class="close">&times;</span>
             <div style="display: flex; align-items: center;">
-                <img src="./wrong-answer.png" height="30px" width="30px"/>
+                <img src="./wrong-answer.png" height="70px" width="70px"/>
                 <h1 id='main-title' style="text-align: center;">&nbsp; Ediot!</h1>
             </div>
         </div>
